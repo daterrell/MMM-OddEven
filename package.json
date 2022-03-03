@@ -1,0 +1,8 @@
+{
+  "name": "MMM-OddEven",
+  "version": "1.0.0",
+  "description": "Do something on odd, even, or both, days",
+  "main": "MMM-OddEven.js",
+  "author": "Dave Terrell",
+  "license": "MIT"
+}
