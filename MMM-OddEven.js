@@ -2,7 +2,8 @@ Module.register("MMM-OddEven", {
     defaults: {
         format: "It's an %s day",
         odd: "odd",
-        even: "even"
+        even: "even",
+        startDate: null,
     },
 
     templateData: {
@@ -39,12 +40,21 @@ Module.register("MMM-OddEven", {
 
     update: function () {
         let formatter = this.config.format ?? "%s";
-        let event = moment().dayOfYear() % 2 ?
+        let dayOfYear = this.getDayOfYear();
+        let event = dayOfYear % 2 ?
             this.config.odd :
             this.config.even;
         
         this.templateData.event = formatter.replace("%s", event);
         
         this.updateDom();
+    },
+
+    getDayOfYear: function() {
+        if (this.config.startDate) {
+            return moment().diff(this.config.startDate, "days") + 1;
+        } else {
+            return moment().dayOfYear();
+        }
     },
 });
