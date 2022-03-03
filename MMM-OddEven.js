@@ -41,16 +41,24 @@ Module.register("MMM-OddEven", {
     update: function () {
         let formatter = this.config.format ?? "%s";
         let dayOfYear = this.getDayOfYear();
-        let event = dayOfYear % 2 ?
-            this.config.odd :
-            this.config.even;
-        
-        this.templateData.event = formatter.replace("%s", event);
-        
+        let event = ""
+
+        if (dayOfYear % 2 && this.config.odd) {
+            event = this.config.odd;
+        } else if (this.config.even) {
+            event = this.config.even;
+        }
+
+        if (event) {
+            this.templateData.event = formatter.replace("%s", event);
+        } else {
+            this.templateData.event = "";
+        }
+
         this.updateDom();
     },
 
-    getDayOfYear: function() {
+    getDayOfYear: function () {
         if (this.config.startDate) {
             return moment().diff(this.config.startDate, "days") + 1;
         } else {
